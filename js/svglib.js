@@ -30,7 +30,6 @@ function createLayer(){
 }
 function getIndex(){
     num = num + 1;
-    alert(num);
     return num;
 }
 

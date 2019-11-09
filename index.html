@@ -3,10 +3,28 @@
         <title>
             DEF 2 SVG
         </title>
-        <link rel='stylesheet' href='css/style.css'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <link rel='stylesheet' type="text/css" href='css/style.css'>
+        <script src="js/parsers.js"></script>
         <script src="js/svgZoomPan.js"></script>
+        <script src="index.js"></script>
     </head>
     <body>
+        <div>
+            <header>
+                <h1>DEF to SVG</h1>
+            </header>
+            <article class="opener">
+                <label for="files">Select a .def file: </label>
+                <input id="defs" type="file" />
+                <output id="result1" />
+            </article>
+            <article class="opener">
+                <label for="files">Select a .lef file: </label>
+                <input id="lefs" type="file" />
+                <output id="result2" />
+            </article>
+        </div>
             <div class="sidenav">
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
