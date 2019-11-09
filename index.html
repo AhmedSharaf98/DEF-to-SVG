@@ -7,6 +7,7 @@
         <link rel='stylesheet' type="text/css" href='css/style.css'>
         <script src="js/parsers.js"></script>
         <script src="js/svgZoomPan.js"></script>
+        <script src="js/jquery.js"></script>
         <script src="index.js"></script>
     </head>
     <body>
@@ -26,28 +27,24 @@
             </article>
         </div>
             <div class="sidenav">
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#clients">Clients</a>
-                <a href="#contact">Contact</a>
             </div>
          <div id="svg-div" style=>
-                <svg id="svg-container"width="400" height="400" viewBox="120 0 120 120" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg id="svg-container"width="400" height="400"  xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <defs>
-                        <pattern id="hashed_1" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                            <rect width="0.3" height="2" transform="translate(0,0)" fill="orange"></rect>
+                        <pattern id="hashed_1" width="4" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                            <rect width="0.5" height="2" transform="translate(0,0)" fill="orange"></rect>
                         </pattern>
                     </defs>
                     <defs>
                         <pattern id="hashed_2" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
                             <rect width="0.3" height="2" transform="translate(0,0)" fill="blue"></rect>
-                        </pattern>
-                    </defs>
-                        <g class="00">
+                        </pattern><g>
                             <rect width="400" height="400" fill="url(#hashed_1)" />
                             
                         </g>
-                        <rect width="400" height="400" fill="url(#hashed_2)" />
+                    </defs>
+                        <!--  -->
+                        <!-- <rect width="400" height="400" fill="url(#hashed_2)" /> -->
                 </svg>
         </div>
       
