@@ -34,7 +34,7 @@ function createLayer(){
     var option = "<input type='checkbox'  class='opt_layer' data-num=" + ++num + " checked>Layer "+ num +"<br>";
     $(".sidenav").append(option);
     var html = makeSVGEl("g", {id: "group_" + num });
-    $("#svg-container").append(html);
+    $(".svg-pan-zoom_viewport").append(html);
 }
 
 function createCell(x, y, h, w, color){
