@@ -34,11 +34,11 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
   }
 
-function createLayer(r,b,g){
+function createLayer(){
     //RBGA Accepts values between 0 and 255
     var r = getRandomInt(256);
     var b = getRandomInt(256);
-    var g = 0; //Removing the green component so that the line gets contast with the background
+    var g = getRandomInt(256);
     var option = "<input type='checkbox' class='opt_layer' data-num=" + ++num + " checked>Layer "+ num +"<br>";
     $(".sidenav").append(option);
     var html = makeSVGEl("g", {id: "group_" + num, "data-r":r,"data-b":b,"data-g":g });
@@ -47,7 +47,7 @@ function createLayer(r,b,g){
 
 function createCell(_x, _y, _h, _w, r, b, g){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.3)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
     $("#group_" + num).append(html);
 }
 
@@ -60,15 +60,23 @@ function createWire(p1x, p1y, p2x, p2y){
     $("#group_" + num).append(html);
 }
 
-function createFF(_x, _y, _h, _w){
+function createAndHighlightFF(_x, _y, _h, _w, r, b, g){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"url(#hashed_1)", style:"stroke:color(rgb(0%,0%,100%););stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
     $("#group_" + num).append(html);
 }
 
 $(document).ready(function() {
+    
     //set initial state.
-    $('.opt_layer').change(function() {
+    $('#x').on(
+        'change', 
+         'select', 
+          function () { 
+            alert('helo'); 
+          }
+       );
+       $(document).on('change', 'input[type="checkbox"]', function() {
         var n = $(this).data('num');
         if(this.checked) {
             $("#group_" + n).show();
@@ -79,7 +87,6 @@ $(document).ready(function() {
     });
 });
 
-createLayer(0,0,0);
-createWire(0,0,100,50);
-createWire(20,20,50,50);
-createWire(40,40,70,50);
+createLayer();
+createCell(10,20,30,40,0,255,0);
+createWire(10,20,30,40);

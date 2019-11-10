@@ -1,6 +1,6 @@
 
 #svg-div{
-    background-color:chartreuse;
+    background-color:whitesmoke;
         width: 450px;
         height: 450px;
         margin: auto;
@@ -64,3 +64,4 @@ input[type='file']{
   background-color: #1BA1E2;
   padding: 12px;
 }
+
