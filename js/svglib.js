@@ -82,4 +82,4 @@ $(document).ready(function() {
 createLayer(0,0,0);
 createWire(0,0,100,50);
 createWire(20,20,50,50);
-createWire(40,40,50,50);
+createWire(40,40,70,50);
