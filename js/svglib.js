@@ -60,6 +60,21 @@ function createWire(p1x, p1y, p2x, p2y){
     $("#group_" + num).append(html);
 }
 
+function createText(_x, _y, txt, rotated){
+    // <text x="10" y="20" style="writing-mode: tb;">
+    //                     Vertical
+    //                 </text>
+    var _html;
+    if(rotated){
+        _html = makeSVGEl("text",
+        { x: _x, y: _y, style:"writing-mode: tb;"});
+    } else {
+        _html = makeSVGEl("text",
+        { x: _x, y: _y,});
+    }
+    _html.innerHTML  = txt;
+   $("#group_" + num).append(_html);
+}
 function createAndHighlightFF(_x, _y, _h, _w, r, b, g){
     var html = makeSVGEl("rect",
      { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
@@ -90,3 +105,5 @@ $(document).ready(function() {
 createLayer();
 createCell(10,20,30,40,0,255,0);
 createWire(10,20,30,40);
+createText(50,50,"ahmed",true);
+createText(50,50,"ahmed",false);
