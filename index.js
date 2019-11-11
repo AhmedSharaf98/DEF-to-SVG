@@ -60,5 +60,6 @@ viewbtn.addEventListener("click", function(Event){
                     createCell(x, y, h, w, r, b, g);
             }
         }
+        
 });
 });

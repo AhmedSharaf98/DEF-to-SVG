@@ -86,7 +86,3 @@ $(document).ready(function() {
         $('#textbox1').val(this.checked);        
     });
 });
-
-createLayer();
-createCell(10,20,30,40,0,255,0);
-createWire(10,20,30,40);
