@@ -60,6 +60,31 @@ viewbtn.addEventListener("click", function(Event){
                     createCell(x, y, h, w, r, b, g);
             }
         }
-        
+        //Drawing the pins
+        createLayer();
+        for (i in defData.pins)
+        {
+            var pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x;
+            var pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y;
+            var pinx = scale_x*(defData.pins[i].x+drawingOffset_x);
+            var piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
+            createCell(pinx, piny, pin_h, pin_w, 0, 0, 0);
+        }
+        //Drawing the nets
+        for (i in defData.nets)
+        {
+            for (j in defData.nets[i].routes)
+            {
+                var coord = defData.nets[i].routes[j].coords;
+                var x1 = scale_x*(coord[0].x+drawingOffset_x);;
+                var y1 = scale_y*Math.abs((coord[0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+                var x2 = (coord.length>1)?scale_x*(coord[1].x+drawingOffset_x): undefined;
+                var y2 = (coord.length>1)?scale_y*Math.abs((coord[1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+                if(defData.nets[i].name.startsWith("clk"))
+                    CreateClkNet(defData.nets[i].routes[j].layer[5], x1, y1, x2, y2);
+                else
+                    CreateNet(defData.nets[i].routes[j].layer[5], x1, y1, x2, y2);
+            }
+        }
 });
 });
