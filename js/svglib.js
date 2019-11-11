@@ -1,6 +1,6 @@
 var options = {
    panEnabled: true
-  , controlIconsEnabled: true
+  , controlIconsEnabled: false
   , zoomEnabled: true
   , dblClickZoomEnabled: true
   , mouseWheelZoomEnabled: true
@@ -108,10 +108,34 @@ function createClkNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefine
     }   
     $("#group_" + layerNum).append(html);
 }
+function exp(){
+    var svg = document.getElementById("svg-container");
 
+    //get svg source.
+    var serializer = new XMLSerializer();
+    var source = serializer.serializeToString(svg);
+
+    //add name spaces.
+    if(!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)){
+        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+    }
+    if(!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)){
+        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+    }
+
+    //add xml declaration
+    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+    $('#link').show();
+    //convert svg source to URI data scheme.
+    var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+
+    //set url value to a element's href attribute.
+    document.getElementById("link").href = url;
+}
 $(document).ready(function() {
     createLayer(); //For PINS
     createLayer(); //FOR CELLS
+    $('#link').hide();
     //set initial state.
        $(document).on('change', 'input[type="checkbox"]', function() {
         var n = $(this).data('num');
