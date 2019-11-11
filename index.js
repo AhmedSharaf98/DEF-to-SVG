@@ -26,7 +26,6 @@ lefInput.addEventListener("change", function(Event){
 });
 }
 viewbtn.addEventListener("click", function(Event){
-        createLayer();
         //createCell(0,0,40,10,0,0,0);
         const scale_x = 450/Math.abs(defData.die.x2-defData.die.x1);
         const scale_y = 450/Math.abs(defData.die.y2-defData.die.y1);
@@ -55,9 +54,49 @@ viewbtn.addEventListener("click", function(Event){
                 var g = celltypeToColor[cell.type].g;
                 // Cell Creation
                 if(String(cell.type).startsWith("FF", 1))
-                    createAndHighlightFF(x, y, h, w, r, b, g)
+                    createFlipFlop(x, y, h, w, r, b, g, cell.name )
                 else
-                    createCell(x, y, h, w, r, b, g);
+                    createCell(x, y, h, w, r, b, g, cell.name);
+            }
+        }
+        //Drawing the pins
+        var pin_w, pin_h, pinx, piny;
+        for (i in defData.pins)
+        {
+            pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
+            pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y*100;
+            if(pin_w>=450)
+                {
+                    // pinx = (450 - pin_w)/2;                    
+                    // piny = (450 - pin_h)/2 -1.5; 
+                    // createCell(pinx, piny, pin_h, pin_w, 0, 0, 0, cell.name);
+                }
+            else
+            {
+                pinx = scale_x*(defData.pins[i].x+drawingOffset_x);
+                piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
+                createPin(pinx, piny, pin_h, pin_w, defData.pins[i].name);
+            }
+        }
+        //Drawing the nets
+        function getLayerWidth(n)
+        {
+            return 0.8 + n * 0.1;
+        }
+        for (i in defData.nets)
+        {
+            for (j in defData.nets[i].routes)
+            {
+                var metal_layer = defData.nets[i].routes[j].layer[5];
+                var coord = defData.nets[i].routes[j].coords;
+                var x1 = scale_x*(coord[0].x+drawingOffset_x);;
+                var y1 = scale_y*Math.abs((coord[0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+                var x2 = (coord.length>1)?scale_x*(coord[1].x+drawingOffset_x): undefined;
+                var y2 = (coord.length>1)?scale_y*Math.abs((coord[1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+                if(defData.nets[i].name.startsWith("clk"))
+                    createClkNet(metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
+                else
+                    createNet(defData.nets[i].routes[j].layer[5], getLayerWidth(metal_layer), x1, y1, x2, y2);
             }
         }
 });
