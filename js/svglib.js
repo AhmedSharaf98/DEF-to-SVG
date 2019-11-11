@@ -32,7 +32,7 @@ function createLayer(){
     //RBGA Accepts values between 0 and 255
     var r = getRandomInt(256);
     var b = getRandomInt(256);
-    var g = getRandomInt(256);
+    var g = 0//;getRandomInt(256);
     opt_txt = "Metal " + ++num;
     if(num == -1) opt_txt = "Pins";
     else if(num == 0) opt_txt = "Cells";
@@ -56,7 +56,7 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
 }
 function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"rgb(0,0,0)", class:"highlighted", style:"stroke:rgb(255,255,255);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(255,255,255, 0.7);stroke-width:0.5"});
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt);

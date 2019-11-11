@@ -1,4 +1,5 @@
-﻿var parsers = function () {
+﻿//The parser we are using can be found at https://github.com/claude-abounegm/DEF-Viewer/tree/master/DEFViewer/Scripts/Custom
+var parsers = function () {
     "use strict";
 
     var _this = {};
