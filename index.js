@@ -126,5 +126,8 @@ viewbtn.addEventListener("click", function(Event){
                     createNet(metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
             }
         }
+        var div = document.getElementById('sidnavRight');
+        for (var key in celltypeToColor)
+            div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
 });
 });
