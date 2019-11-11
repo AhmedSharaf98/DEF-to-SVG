@@ -42,33 +42,33 @@ function createLayer(){
     $(".svg-pan-zoom_viewport").append(html);
 }
 function createText(_x, _y, txt, layer){
-    var _html = makeSVGEl("text",
-        { x: _x, y: _y, style:"writing-mode: tb;"});
-    _html.innerHTML  = txt;
-   $("#group_" + layer).append(_html);
+//     var _html = makeSVGEl("text",
+//         { x: _x, y: _y, style:"writing-mode: tb;"});
+//     _html.innerHTML  = txt;
+//    $("#group_" + layer).append(_html);
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
      { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
     $("#group_0").append(html);
-//     if(_w > 5) //TODO: Check the correct value
-//         createText(_x + _w/2, _y, txt, 0);
+    if(_w > 5) //TODO: Check the correct value
+        createText(_x + _w/2, _y, txt, 0);
 }
 function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", class:"highlighted", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, fill:"rgb(0,0,0)", class:"highlighted", style:"stroke:rgb(255,255,255);stroke-width:0.5"});
     $("#group_0").append(html);
-    // if(_w > 5) //TODO: Check the correct value
-    //     createText(_x + _w/2, _y, txt);
+    if(_w > 5) //TODO: Check the correct value
+        createText(_x + _w/2, _y, txt);
 }
 function createPin(_x, _y, _h, _w, txt){
     var html = makeSVGEl("rect",
-    { x: _x, y: _y, height: _h, width: _w});
+    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w});
    $("#group_-1").append(html);
-//    if(_x > 20 || _x < 430)
-//        createText(_x + _w/2, _y, txt, -1);
-//    else
-//        createText(_x, _y + _h/2, txt, -1);
+   if(_x > 20 || _x < 430)
+       createText(_x + _w/2, _y, txt, -1);
+   else
+       createText(_x, _y + _h/2, txt, -1);
 }
 
 function createNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){
@@ -77,16 +77,16 @@ function createNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){
             createLayer();
         }
     }
-    var r = $("#group_" + num).data('r');
-    var g = $("#group_" + num).data('g');
-    var b = $("#group_" + num).data('b');
+    var r = $("#group_" + layerNum).data('r');
+    var g = $("#group_" + layerNum).data('g');
+    var b = $("#group_" + layerNum).data('b');
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
         { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:" + width + ";stroke-opacity: 0.5"});
     } else {
-        html =  makeSVGEl("circle", 
-        {cx:p1x, cy:p1y, r:"1", fill:"red"});
+        html =  makeSVGEl("rect", 
+        {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red", style:"fill-opacity: .5"});
     }   
     $("#group_" + layerNum).append(html);
 }
@@ -97,13 +97,14 @@ function createClkNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefine
             createLayer();
         }
     }
+
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+0+","+240+","+0+");stroke-width:" + width});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgb(255,255,255);stroke-width:" + width});
     } else {
-        html =  makeSVGEl("circle", 
-        {cx:p1x, cy:p1y, r:"1", fill:"red" , class:"highlighted"});
+        html =  makeSVGEl("rect", 
+        {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
     }   
     $("#group_" + layerNum).append(html);
 }
