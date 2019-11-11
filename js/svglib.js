@@ -51,13 +51,25 @@ function createCell(_x, _y, _h, _w, r, b, g){
     $("#group_" + num).append(html);
 }
 
-function createWire(p1x, p1y, p2x, p2y){
+function createWire(p1x, p1y, p2x, p2y, hasLeftEnd, hasRightEnd){
     var r = $("#group_" + num).data('r');
     var g = $("#group_" + num).data('g');
     var b = $("#group_" + num).data('b');
     var html = makeSVGEl("line",
-     { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:2"});
+     { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:2"});   
     $("#group_" + num).append(html);
+
+    if(hasLeftEnd){
+        var c = makeSVGEl("circle",
+        { cx: p1x, cy: p1y, r: 3, style:"stroke:rgb("+r+","+g+","+b+");stroke-width:1"});
+        $("#group_" + num).append(c);
+    }
+
+    if(hasRightEnd){
+        var c = makeSVGEl("circle",
+        { cx: p2x, cy: p2y, r: 3, style:"stroke:rgb("+r+","+g+","+b+");stroke-width:1"});
+        $("#group_" + num).append(c);
+    }
 }
 
 function createText(_x, _y, txt, rotated){
@@ -104,6 +116,6 @@ $(document).ready(function() {
 
 createLayer();
 createCell(10,20,30,40,0,255,0);
-createWire(10,20,30,40);
+createWire(10,20,30,40,true,true);
 createText(50,50,"ahmed",true);
-createText(50,50,"ahmed",false);
+createText(10,30,"ahmed",false);
