@@ -83,7 +83,7 @@ function createNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:" + width});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:" + width + ";stroke-opacity: 0.5"});
     } else {
         html =  makeSVGEl("circle", 
         {cx:p1x, cy:p1y, r:"1", fill:"red"});
@@ -115,13 +115,6 @@ $(document).ready(function() {
     createLayer(); //For PINS
     createLayer(); //FOR CELLS
     //set initial state.
-    $('#x').on(
-        'change', 
-         'select', 
-          function () { 
-            alert('helo'); 
-          }
-       );
        $(document).on('change', 'input[type="checkbox"]', function() {
         var n = $(this).data('num');
         if(this.checked) {
