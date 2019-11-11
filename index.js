@@ -60,13 +60,23 @@ viewbtn.addEventListener("click", function(Event){
             }
         }
         //Drawing the pins
+        var pin_w, pin_h, pinx, piny;
         for (i in defData.pins)
         {
-            var pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
-            var pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y*100;
-            var pinx = scale_x*(defData.pins[i].x+drawingOffset_x);
-            var piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
-            createPin(pinx, piny, pin_h, pin_w, defData.pins[i].name);
+            pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
+            pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y*100;
+            if(pin_w>=450)
+                {
+                    // pinx = (450 - pin_w)/2;                    
+                    // piny = (450 - pin_h)/2 -1.5; 
+                    // createCell(pinx, piny, pin_h, pin_w, 0, 0, 0, cell.name);
+                }
+            else
+            {
+                pinx = scale_x*(defData.pins[i].x+drawingOffset_x);
+                piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
+                createPin(pinx, piny, pin_h, pin_w, defData.pins[i].name);
+            }
         }
         //Drawing the nets
         function getLayerWidth(n)
