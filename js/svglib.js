@@ -56,7 +56,7 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
 }
 function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(255,255,255, 0.7);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt);
