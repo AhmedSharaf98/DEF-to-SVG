@@ -56,7 +56,7 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
 }
 function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(255,255,255, 0.7);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(255,255,255, 0.7);stroke-width:0.5"});
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt);
@@ -101,12 +101,28 @@ function createClkNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefine
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgb(255,255,255);stroke-width:" + width});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgb(255,255,255);stroke-width:" + width, class:"clkHighlight"});
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
     }   
     $("#group_" + layerNum).append(html);
+}
+var h=false;
+var clk= false;
+function showff(){
+    if(h)
+        $('.highlighted').css('fill', 'whitesmoke');
+    else 
+        $('.highlighted').css('fill', 'black');
+    h = !h;
+    
+    if(clk)
+        $('.clkHighlight').css('stroke', 'black');
+    else 
+        $('.clkHighlight').css('stroke', 'white');
+    clk = !clk;
+
 }
 function exp(){
     var svg = document.getElementById("svg-container");
