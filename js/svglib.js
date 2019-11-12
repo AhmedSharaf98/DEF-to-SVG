@@ -108,8 +108,8 @@ function createClkNet(layerNum, width, p1x, p1y, p2x = undefined, p2y = undefine
     }   
     $("#group_" + layerNum).append(html);
 }
-var h=false;
-var clk= false;
+var h=true;
+var clk= true;
 function showff(){
     if(h)
         $('.highlighted').css('fill', 'whitesmoke');
