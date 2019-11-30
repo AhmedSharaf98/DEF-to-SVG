@@ -92,7 +92,7 @@ viewbtn.addEventListener("click", function(Event){
         {
             pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
             pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y*100;
-            if(pin_w>=450)
+            if(pin_w>20) //by passing some parser errors
                 {
                     // pinx = (450 - pin_w)/2;                    
                     // piny = (450 - pin_h)/2 -1.5; 
@@ -108,7 +108,7 @@ viewbtn.addEventListener("click", function(Event){
         //Drawing the nets
         function getLayerWidth(n)
         {
-            return 0.8 + n * 0.1;
+            return 0.8 + n * 0.08;
         }
         for (i in defData.nets)
         {
