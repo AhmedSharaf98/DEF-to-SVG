@@ -5,9 +5,11 @@
         </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel='stylesheet' type="text/css" href='css/style.css'>
+        <link href="css/bootstrap.css" rel="stylesheet">
         <script src="js/parsers.js"></script>
         <script src="js/svgZoomPan.js"></script>
-        <script src="js/jquery.js"></script>
+        <script src="js/jquery-2.2.3.js"></script>
+        <script src="js/bootstrap.js"></script>
         <script src="js/drc.js"></script>
         <script src="index.js"></script>
     </head>
@@ -16,26 +18,49 @@
             <header>
                 <h1>DEF to SVG</h1>
             </header>
-            <article class="opener">
-                <label for="files">Select a .def file: </label>
-                <input id="defs" type="file" />
-                <output id="result1" />
-            </article>
-            <article class="opener">
-                <label for="files">Select a .lef file: </label>
-                <input id="lefs" type="file" />
-                <output id="result2" />
-            </article>
-            <div class="opener">
-                    <button id="viewbtn">VIEW IT</button>
+            <div class="row">
+                <div class="col-xs-1">
+
+                </div>
+                <div class="col-xs-1">
+                        <label for="files">Select a .def file: </label>
+                        
+                </div>
+                <div class="col-xs-1">
+                        <input id="defs" type="file" />
+                </div>
+
+                <div class="col-xs-1">
+                   
+                    <output id="result1" />
+                </div>
+                <div class="col-xs-1">
+                        <label for="files">Select a .lef file: </label>
+                </div>
+                <div class="col-xs-1">
+                        <input id="lefs" type="file" />
+                </div>
+                <div class="col-xs-1">
+
+                    <output id="result2" />   
+                </div>  
+                <div class="col-xs-1">
+                    <button id="viewbtn" class="btn btn-light">VIEW IT</button>
+                </div>  
+                <div class="col-xs-1">
+                        <button id="save-svg" class="btn btn-success" onclick="exp()">Export</button>
+                        <a href="" id="link" download>Download</a>
+                </div>  
+                <div class="col-xs-1">
+                    <button id="highlight" class="btn btn-warning" onclick="showff()">Show FFs&CLK</button>  
+                </div>
+                                    
+                    
+                    
+                
             </div>
-            <div class="opener">
-                <button id="highlight" onclick="showff()">Show FFs&CLK</button>
-            </div>
-            <div class="opener">
-                <button id="save-svg" onclick="exp()">Export</button>
-                <a href="" id="link" download>Download</a>
-            </div>
+                
+            
         </div>
             <div class="sidenav"></div>
          <div id="svg-div" style=>

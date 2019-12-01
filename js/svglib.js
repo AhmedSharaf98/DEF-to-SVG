@@ -49,7 +49,10 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w , fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+    html.setAttribute("data-toggle", "popover");
+    html.setAttribute("data-trigger", "hover");
+    html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt, 0);
@@ -57,6 +60,9 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
 function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
      { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+    html.setAttribute("data-toggle", "popover");
+    html.setAttribute("data-trigger", "hover");
+    html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt);

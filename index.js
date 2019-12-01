@@ -1,6 +1,7 @@
 /// <reference path="js/parsers.js" />
 /// <reference path="js/svglib.js" />
 
+draw_colors_once=0;
 $(document).ready(function(){
 var lefLoaded = false;
 defInput = document.getElementById('defs');
@@ -72,6 +73,9 @@ viewbtn.addEventListener("click", function(Event){
             {
                 //Define Cell Dimentions and color
                 var cell = defData.cells[i][j];
+                var cell_info = {}
+                cell_info.name = cell.name;
+                cell_info.type = cell.type;
                 if(celltypeToColor[cell.type]===undefined)
                     celltypeToColor[cell.type] = {'r':  getRandomInt(255), 'b':  getRandomInt(255), 'g':  getRandomInt(255)}
                 var x = scale_x*(cell.x+drawingOffset_x);
@@ -82,9 +86,9 @@ viewbtn.addEventListener("click", function(Event){
                 var g = celltypeToColor[cell.type].g;
                 // Cell Creation
                 if(String(cell.type).startsWith("FF", 1))
-                    createFlipFlop(x, y, h, w, r, b, g, cell.name )
+                    createFlipFlop(x, y, h, w, r, b, g, cell_info )
                 else
-                    createCell(x, y, h, w, r, b, g, cell.name);
+                    createCell(x, y, h, w, r, b, g, cell_info);
             }
         }
         //Drawing the pins
@@ -135,9 +139,17 @@ viewbtn.addEventListener("click", function(Event){
         console.log(all_vias);
         check_drc();
         console.log(all_violations);
-
-        var div = document.getElementById('sidnavRight');
-        for (var key in celltypeToColor)
-            div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
+        if(!draw_colors_once)
+        {
+            var div = document.getElementById('sidnavRight');
+            for (var key in celltypeToColor)
+                div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
+                draw_colors_once = 1;
+        }
+        $('[data-toggle="popover"]').popover({
+            container: "body",
+            placement: "auto",
+            html: true
+        });
 });
 });
