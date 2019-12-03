@@ -49,7 +49,7 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w , fill:"rgba("+r+","+g+","+b+", 0.5)", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w , fill:"rgba("+r+","+g+","+b+")", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
@@ -72,6 +72,10 @@ function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
 function createPin(_x, _y, _h, _w, name){
     var html = makeSVGEl("rect",
     { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w});
+    html.setAttribute("data-toggle", "popover");
+    html.setAttribute("data-trigger", "hover");
+    html.setAttribute("title", "PIN name");
+    html.setAttribute("data-content", name);
     html.setAttribute("id", name);
    $("#group_-1").append(html);
    if(_x > 20 || _x < 430)

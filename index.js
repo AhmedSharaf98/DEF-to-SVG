@@ -46,8 +46,8 @@ viewbtn.addEventListener("click", function(Event){
             "AOI22X1": {r: 16, b: 128, g: 201},
             "BUFX2": {r: 106, b: 15, g: 138},
             "BUFX4": {r: 66, b: 159, g: 106},
-            "DFFPOSX1": {r: 0, b: 0, g: 0},
-            "DFFSR": {r: 0, b: 0, g: 0},
+            "DFFPOSX1": {r: 47, b: 79, g: 79},
+            "DFFSR": {r: 112, b: 128, g: 144},
             "FILL": {r: 253, b: 77, g: 69},
             "INVX1": {r: 107, b: 27, g: 180},
             "INVX2": {r: 98, b: 149, g: 168},
@@ -84,9 +84,9 @@ viewbtn.addEventListener("click", function(Event){
                 var b = celltypeToColor[cell.type].b;
                 var g = celltypeToColor[cell.type].g;
                 // Cell Creation
-                if(String(cell.type).startsWith("FF", 1))
-                    createFlipFlop(x, y, h, w, r, b, g, cell_info )
-                else
+                // if(String(cell.type).startsWith("FF", 1))
+                //     createFlipFlop(x, y, h, w, r, b, g, cell_info )
+                // else
                     createCell(x, y, h, w, r, b, g, cell_info);
             }
         }
@@ -156,21 +156,13 @@ viewbtn.addEventListener("click", function(Event){
 // var clk= true;
 var svg_element;
 var net;
+var original_color;
+var prev_input;
 function showff(){
-    // if(h)
-    //     $('.highlighted').css('fill', 'whitesmoke');
-    // else 
-    //     $('.highlighted').css('fill', 'black');
-    // h = !h;
-    
-    // if(clk)
-    //     $('.clkHighlight').css('stroke', 'black');
-    // else 
-    //     $('.clkHighlight').css('stroke', 'white');
-    // clk = !clk;
     if(svg_element!=undefined)
     {
         svg_element.classList.remove("blink_me");
+        $('#'+prev_input).css('fill', original_color);
     }
     else if(net!=undefined)
     {
@@ -204,8 +196,13 @@ function showff(){
                 svg_element = document.getElementById(input);
                 if(svg_element==null)
                     alert(opt.substr(16)+" doesn't exist!");
-                else
+                else{
+                    original_color = $('#'+input).css('fill');
+                    $('#'+input).css('fill', '#DC143C');
+                    $('#'+input).popover('show');
                     svg_element.classList.add("blink_me");
+                    prev_input = input;
+                }
         }
         //console.log(opt, element);
     }

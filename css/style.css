@@ -24,6 +24,7 @@
 .sidenav2 h6{
 margin:0 10px;
 color: lightsalmon;
+text-shadow: 1px 1px black;
 text-align: center;
 }
 .sidenav {
@@ -103,7 +104,6 @@ input[type='file']{
 }
 .blink_me {
   animation: blinker 1s linear infinite;
-  color: red;
 }
 
 @keyframes blinker {  
