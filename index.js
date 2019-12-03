@@ -29,6 +29,10 @@ lefInput.addEventListener("change", function(Event){
 }
 viewbtn.addEventListener("click", function(Event){
         //createCell(0,0,40,10,0,0,0);
+        if(defInput.value==""||lefInput.value==""){
+            alert("Make sure to select a .def and a .lef files!");
+            return;
+        }
         const scale_x = 500/Math.abs(defData.die.x2-defData.die.x1);
         const scale_y = 500/Math.abs(defData.die.y2-defData.die.y1);
         const drawingOffset_x = - defData.die.x1;
