@@ -120,7 +120,8 @@ function createClkNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y =
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
     }
-    html.classList.add(netName);  
+    html.classList.add("clk");
+    //html.classList.add(netName);  
     $("#group_" + layerNum).append(html);
 }
 
