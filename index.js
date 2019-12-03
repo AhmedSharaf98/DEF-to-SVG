@@ -29,8 +29,8 @@ lefInput.addEventListener("change", function(Event){
 }
 viewbtn.addEventListener("click", function(Event){
         //createCell(0,0,40,10,0,0,0);
-        const scale_x = 450/Math.abs(defData.die.x2-defData.die.x1);
-        const scale_y = 450/Math.abs(defData.die.y2-defData.die.y1);
+        const scale_x = 500/Math.abs(defData.die.x2-defData.die.x1);
+        const scale_y = 500/Math.abs(defData.die.y2-defData.die.y1);
         const drawingOffset_x = - defData.die.x1;
         const drawingOffset_y = - defData.die.y1;
         if(!lefLoaded)
@@ -66,14 +66,13 @@ viewbtn.addEventListener("click", function(Event){
         };
         
         const h = scale_y*lefData.cells[defData.cells[0][0].type].h *100;
-        
+        var cell_info = {}
         for (i in defData.cells)
         {
             for (j in defData.cells[i])
             {
                 //Define Cell Dimentions and color
                 var cell = defData.cells[i][j];
-                var cell_info = {}
                 cell_info.name = cell.name;
                 cell_info.type = cell.type;
                 if(celltypeToColor[cell.type]===undefined)
@@ -97,7 +96,7 @@ viewbtn.addEventListener("click", function(Event){
         {
             pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
             pin_h= (defData.pins[i].y2-defData.pins[i].y1)*scale_y*100;
-            if(pin_w>20) //by passing some parser errors
+            if(pin_w>20) //by-passing some parser errors
                 {
                     // pinx = (450 - pin_w)/2;                    
                     // piny = (450 - pin_h)/2 -1.5; 
@@ -126,9 +125,9 @@ viewbtn.addEventListener("click", function(Event){
                 var x2 = (coord.length>1)?scale_x*(coord[1].x+drawingOffset_x): undefined;
                 var y2 = (coord.length>1)?scale_y*Math.abs((coord[1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
                 if(defData.nets[i].name.startsWith("clk"))
-                    createClkNet(metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
+                    createClkNet(defData.nets[i].name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
                 else
-                    createNet(metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
+                    createNet(defData.nets[i].name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
 
                 //DRC
                 record(coord, metal_layer);
@@ -144,7 +143,7 @@ viewbtn.addEventListener("click", function(Event){
             var div = document.getElementById('sidnavRight');
             for (var key in celltypeToColor)
                 div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
-                draw_colors_once = 1;
+            draw_colors_once = 1;
         }
         $('[data-toggle="popover"]').popover({
             container: "body",
@@ -153,3 +152,61 @@ viewbtn.addEventListener("click", function(Event){
         });
 });
 });
+// var h=true;
+// var clk= true;
+var svg_element;
+var net;
+function showff(){
+    // if(h)
+    //     $('.highlighted').css('fill', 'whitesmoke');
+    // else 
+    //     $('.highlighted').css('fill', 'black');
+    // h = !h;
+    
+    // if(clk)
+    //     $('.clkHighlight').css('stroke', 'black');
+    // else 
+    //     $('.clkHighlight').css('stroke', 'white');
+    // clk = !clk;
+    if(svg_element!=undefined)
+    {
+        svg_element.classList.remove("blink_me");
+    }
+    else if(net!=undefined)
+    {
+        for (var i=0; i<net.length; i++)
+            {                    
+                net[i].classList.remove("blink_me");               
+                
+            }
+    }
+    var input = document.getElementById("search_element").value;
+    var opt = document.getElementById("opt").value;
+    if(opt=="Default select")
+        alert("Please Specify search option first!");
+    else if(input=="")
+        alert("Please Enter a search value first!");
+    else{
+        switch(opt)
+        {
+            case "Searching for a NET":
+                net = document.getElementsByClassName(input);
+                if(net.length==0)
+                    alert("NET doesn't exist");
+                else
+                    for (var i=0; i<net.length; i++)
+                    {                    
+                        net[i].classList.add("blink_me");                 
+                    }
+                break;
+            case "Searching for a CELL":
+            case "Searching for a PIN":
+                svg_element = document.getElementById(input);
+                if(svg_element==null)
+                    alert(opt.substr(16)+" doesn't exist!");
+                else
+                    svg_element.classList.add("blink_me");
+        }
+        //console.log(opt, element);
+    }
+}

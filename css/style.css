@@ -1,8 +1,8 @@
 
 #svg-div{
     background-color:whitesmoke;
-        width: 450px;
-        height: 450px;
+        width: 500px;
+        height: 500px;
         margin: auto;
         margin-top: 120px ;
         border-style: solid;
@@ -94,4 +94,18 @@ input[type='file']{
 .highlighted{
   background-color: darkblue;
   color: darkblue;
+}
+.title{
+  color: whitesmoke;
+  margin-left: 15px;
+  text-align: center;
+  text-shadow: 1px 1px black;
+}
+.blink_me {
+  animation: blinker 1s linear infinite;
+  color: red;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0; }
 }
