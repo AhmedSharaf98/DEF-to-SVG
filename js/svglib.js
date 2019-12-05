@@ -85,15 +85,20 @@ function createPin(_x, _y, _h, _w, name){
    else
        createText(_x, _y + _h/2, name, -1);
 }
-function createDRC(_x1){
-        console.log(_x1);
-//     var html = makeSVGEl("rect",
-//     { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
-//    $("#group_-2").append(html);
-//    if(_x > 20 || _x < 430)
-//        createText(_x + _w/2, _y, name, -1);
-//    else
-//        createText(_x, _y + _h/2, name, -1);
+function createDRC(violation){
+        var wire1_x1 = violation[0][0].x;
+        var wire1_y1 = violation[0][0].y;
+        var wire1_x2 = violation[0][1].x;
+        var wire1_y2 = violation[0][1].y;
+        var wire2_x1 = violation[1][0].x;
+        var wire2_y1 = violation[1][0].y;
+        var wire2_x2 = violation[1][1].x;
+        var wire2_y2 = violation[1][1].y;
+        var _width, _height;
+
+    var html = makeSVGEl("rect",
+    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+   $("#group_-2").append(html);
 }
 
 function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){
