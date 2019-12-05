@@ -4,10 +4,16 @@
         width: 500px;
         height: 500px;
         margin: auto;
-        margin-top: 120px ;
+        margin-top: 7px ;
         border-style: solid;
         border-color: lightsalmon;
 }
+.center-btns{
+  margin-top: 105px ;
+  padding-left: 80px;
+  
+}
+
 .header-container {
   height: 100px;
   width: 100%;
@@ -65,6 +71,7 @@ text-align: center;
   body{
     font-family: 'Segoe UI';
     font-size: 12pt;
+    overflow-y:scroll;
 }
 
 header h1{
@@ -100,7 +107,10 @@ input[type='file']{
   color: whitesmoke;
   margin-left: 15px;
   text-align: center;
-  text-shadow: 1px 1px black;
+}
+.dropdown-menu{
+  position: relative; /* <-- Added */
+  z-index: 9999;
 }
 .blink_me {
   animation: blinker 1s linear infinite;

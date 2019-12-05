@@ -38,31 +38,24 @@
                 <div class="col-xs-1">
                         <input id="lefs" type="file" />
                 </div>
-                <div class="col-xs-1">
+                <div class="col-xs-2">
 
                     <output id="result2" />   
                 </div>  
                 <div class="col-xs-1">
-                    <button id="viewbtn" class="btn btn-light">VIEW IT</button>
-                </div>  
+                    <button id="viewbtn" class="btn btn-warning">VIEW IT</button>
+                </div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
                 <div class="col-xs-1">
                         <button id="save-svg" class="btn btn-success" onclick="exp()">Export</button>
                         <a href="" id="link" download>Download</a>
                 </div> 
-                <div class="col-xs-2">
-                        <div class="form-group mx-sm-3 mb-2"> 
-                            <select id="opt" class="form-control">
-                                    <option>Default select</option>
-                                    <option>Searching for a NET</option>
-                                    <option>Searching for a CELL</option>
-                                    <option>Searching for a PIN</option>
-                            </select>              
-                            <input type="text" class="form-control" id="search_element" placeholder="search here"> 
-                        </div>
-                </div>
-                <div class="col-xs-1">
+               
+                <!-- <div class="col-xs-1">
                     <button id="highlight" class="btn btn-warning" onclick="showff()">Show</button> 
-                </div>
+                </div> -->
                 
             </div>
                 
@@ -70,6 +63,36 @@
         </div>
         <div class="sidenav"></div>
         <div class="container">
+                <div class="row justify-content-center center-btns ">
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1"></div>
+                        <div class="col-xs-1">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">CELLS<span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="dropdownCells">
+                                  <input class="form-control" id="myInputCells" type="text" placeholder="Search..">
+                                </ul>
+                              </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">PINS<span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="dropdownPins">
+                                  <input class="form-control" id="myInputPins" type="text" placeholder="Search..">
+                                </ul>
+                              </div>
+                        </div>
+                        <div class="col-xs-1">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">NETS<span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="dropdownNets">
+                                  <input class="form-control" id="myInputNets" type="text" placeholder="Search..">
+                                </ul>
+                              </div>
+                        </div>
+                    </div>
             <div id="svg-div" class="panel" style=>
                 <svg id="svg-container"width="500" height="500"  xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <!-- <defs>
@@ -89,7 +112,8 @@
         <div class="sidenav2" id="sidnavRight">
             <h3>Color Code</h3>
         </div>
-      
+        
+        
         <script src="js/svglib.js"></script>
     </body>
 </html>

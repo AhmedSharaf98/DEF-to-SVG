@@ -29,6 +29,10 @@ lefInput.addEventListener("change", function(Event){
 }
 viewbtn.addEventListener("click", function(Event){
         //createCell(0,0,40,10,0,0,0);
+        if(defInput.value==""||lefInput.value==""){
+            alert("Make sure to select a .def and a .lef files!");
+            return;
+        }
         const scale_x = 500/Math.abs(defData.die.x2-defData.die.x1);
         const scale_y = 500/Math.abs(defData.die.y2-defData.die.y1);
         const drawingOffset_x = - defData.die.x1;
@@ -67,6 +71,7 @@ viewbtn.addEventListener("click", function(Event){
         
         const h = scale_y*lefData.cells[defData.cells[0][0].type].h *100;
         var cell_info = {}
+        var dropdownCells = document.getElementById("dropdownCells");
         for (i in defData.cells)
         {
             for (j in defData.cells[i])
@@ -87,11 +92,13 @@ viewbtn.addEventListener("click", function(Event){
                 // if(String(cell.type).startsWith("FF", 1))
                 //     createFlipFlop(x, y, h, w, r, b, g, cell_info )
                 // else
-                    createCell(x, y, h, w, r, b, g, cell_info);
+                createCell(x, y, h, w, r, b, g, cell_info);
+                dropdownCells.innerHTML += '<li><a href="#" onClick="show(\''+ cell_info.name+'\')">'+cell_info.name+'</a></li>';
             }
         }
         //Drawing the pins
         var pin_w, pin_h, pinx, piny;
+        var dropdownPins = document.getElementById("dropdownPins");
         for (i in defData.pins)
         {
             pin_w= (defData.pins[i].x2-defData.pins[i].x1)*scale_x*100;
@@ -108,12 +115,14 @@ viewbtn.addEventListener("click", function(Event){
                 piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
                 createPin(pinx, piny, pin_h, pin_w, defData.pins[i].name);
             }
+            dropdownPins.innerHTML += '<li><a href="#" onClick="show(\''+defData.pins[i].name+'\')">'+defData.pins[i].name+'</a></li>';
         }
         //Drawing the nets
         function getLayerWidth(n)
         {
             return 0.8 + n * 0.08;
         }
+        var dropdownNets = document.getElementById("dropdownNets");
         for (i in defData.nets)
         {
             for (j in defData.nets[i].routes)
@@ -132,6 +141,7 @@ viewbtn.addEventListener("click", function(Event){
                 //DRC
                 record(coord, metal_layer);
             }
+            dropdownNets.innerHTML += '<li><a href="#" onClick="showNet(\''+defData.nets[i].name+'\')">'+defData.nets[i].name+'</a></li>';
         }
         sort_all_records();
         console.log(all_wires);
@@ -153,7 +163,26 @@ viewbtn.addEventListener("click", function(Event){
             placement: "auto",
             html: true
         });
+        $("#myInputCells").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#dropdownCells li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $("#myInputPins").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#dropdownPins li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+        $("#myInputNets").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#dropdownNets li").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
 });
+    
 });
 // var h=true;
 // var clk= true;
@@ -161,13 +190,31 @@ var svg_element;
 var net;
 var original_color;
 var prev_input;
-function showff(){
+function show(input){
     if(svg_element!=undefined)
     {
         svg_element.classList.remove("blink_me");
         $('#'+prev_input).css('fill', original_color);
     }
-    else if(net!=undefined)
+    if(input[input.length-1]=='>')
+    {
+        var p = input.length-3;
+        while(input[p]!='<')
+            p--;
+    }
+    svg_element = document.getElementById(input);
+    if(svg_element==null)
+        alert(opt.substr(16)+" doesn't exist!");
+    else{
+        original_color = $('#'+input).css('fill');
+        $('#'+input).css('fill', '#DC143C');
+        $('#'+input).popover('show');
+        svg_element.classList.add("blink_me");
+        prev_input = input;
+    }
+}
+function showNet(input){
+    if(net!=undefined)
     {
         for (var i=0; i<net.length; i++)
             {                    
@@ -175,38 +222,12 @@ function showff(){
                 
             }
     }
-    var input = document.getElementById("search_element").value;
-    var opt = document.getElementById("opt").value;
-    if(opt=="Default select")
-        alert("Please Specify search option first!");
-    else if(input=="")
-        alert("Please Enter a search value first!");
-    else{
-        switch(opt)
-        {
-            case "Searching for a NET":
-                net = document.getElementsByClassName(input);
-                if(net.length==0)
-                    alert("NET doesn't exist");
-                else
-                    for (var i=0; i<net.length; i++)
-                    {                    
-                        net[i].classList.add("blink_me");                 
-                    }
-                break;
-            case "Searching for a CELL":
-            case "Searching for a PIN":
-                svg_element = document.getElementById(input);
-                if(svg_element==null)
-                    alert(opt.substr(16)+" doesn't exist!");
-                else{
-                    original_color = $('#'+input).css('fill');
-                    $('#'+input).css('fill', '#DC143C');
-                    $('#'+input).popover('show');
-                    svg_element.classList.add("blink_me");
-                    prev_input = input;
+    net = document.getElementsByClassName(input);
+            if(net.length==0)
+                alert("NET doesn't exist");
+            else
+                for (var i=0; i<net.length; i++)
+                {                    
+                    net[i].classList.add("blink_me");                 
                 }
-        }
-        //console.log(opt, element);
-    }
 }
