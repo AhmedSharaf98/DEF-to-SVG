@@ -151,7 +151,15 @@ viewbtn.addEventListener("click", function(Event){
         check_drc();
         console.log(all_violations);
         all_violations.forEach(element => {
-            createDRC(element);
+	    var x1 = scale_x*(element[0][0].x+drawingOffset_x);
+            var y1 = scale_y*Math.abs((element[0][0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+            var x2 = (element[0].length>1)?scale_x*(element[0][1].x+drawingOffset_x): undefined;
+            var y2 = (element[0].length>1)?scale_y*Math.abs((element[0][1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+	    var _x1 = scale_x*(element[1][0].x+drawingOffset_x);;
+            var _y1 = scale_y*Math.abs((element[1][0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+            var _x2 = (element[1].length>1)?scale_x*(element[1][1].x+drawingOffset_x): undefined;
+            var _y2 = (element[1].length>1)?scale_y*Math.abs((element[1][1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+            createDRC([[{'x':x1, 'y':y1}, {'x':x2, 'y':y2}],[{'x':_x1, 'y':_y1}, {'x':_x2, 'y':_y2}]]);
         });
         if(!draw_colors_once)
         {
