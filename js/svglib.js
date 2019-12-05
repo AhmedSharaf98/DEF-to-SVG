@@ -40,7 +40,10 @@ function createLayer(){
     var option = "<input type='checkbox' class='opt_layer' data-num=" + num + " checked>"+ opt_txt +"<br>";
     $(".sidenav").append(option);
     var html = makeSVGEl("g", {id: "group_" + num, "data-r":r,"data-b":b,"data-g":g });
-    $(".svg-pan-zoom_viewport").append(html);
+    if(num == -2)
+        $("#drc-container").append(html);
+    else
+        $("#not-drc-container").append(html);
 }
 function createText(_x, _y, txt, layer){
 //     var _html = makeSVGEl("text",
@@ -86,18 +89,22 @@ function createPin(_x, _y, _h, _w, name){
        createText(_x, _y + _h/2, name, -1);
 }
 function createDRC(violation){
-        var wire1_x1 = violation[0][0].x;
-        var wire1_y1 = violation[0][0].y;
-        var wire1_x2 = violation[0][1].x;
-        var wire1_y2 = violation[0][1].y;
-        var wire2_x1 = violation[1][0].x;
-        var wire2_y1 = violation[1][0].y;
-        var wire2_x2 = violation[1][1].x;
-        var wire2_y2 = violation[1][1].y;
-        var _width, _height;
+    var wire1_x1 = violation[0][0].x;
+    var wire1_y1 = violation[0][0].y;
+    var wire1_x2 = violation[0][1].x;
+    var wire1_y2 = violation[0][1].y;
+    var wire2_x1 = violation[1][0].x;
+    var wire2_y1 = violation[1][0].y;
+    var wire2_x2 = violation[1][1].x;
+    var wire2_y2 = violation[1][1].y;
+    var offset = 5;
+    var _x = Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - offset;
+    var _y = Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - offset;
+    var _width = Math.max(Math.abs(wire1_x1 - wire1_x2),Math.abs(wire2_x1 - wire2_x2)) + offset;
+    var _height = Math.max(Math.abs(wire1_y1 - wire1_y2),Math.abs(wire2_y1 - wire2_y2)) + offset;
 
     var html = makeSVGEl("rect",
-    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+    { x: _x, y: _y , height: _height, width: _width, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
    $("#group_-2").append(html);
 }
 
