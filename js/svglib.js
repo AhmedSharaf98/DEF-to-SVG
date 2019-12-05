@@ -54,7 +54,8 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
-    html.setAttribute("id", txt.name);
+    console.log(correctName(txt.name));
+    html.setAttribute("id", correctName(txt.name));
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt, 0);
@@ -77,7 +78,7 @@ function createPin(_x, _y, _h, _w, name){
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("title", "PIN name");
     html.setAttribute("data-content", name);
-    html.setAttribute("id", name);
+    html.setAttribute("id", correctName(name));
    $("#group_-1").append(html);
    if(_x > 20 || _x < 430)
        createText(_x + _w/2, _y, name, -1);
@@ -112,7 +113,7 @@ function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = un
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red", style:"fill-opacity: .5"});
     }
-    html.classList.add(netName);
+    html.classList.add(correctName(netName));
     $("#group_" + layerNum).append(html);
 }
 
@@ -177,3 +178,11 @@ $(document).ready(function() {
         $('#textbox1').val(this.checked);        
     });
 });
+function correctName(input)
+{
+    if(input[input.length-1]=='>')
+    {
+        input = input.replace('<','_').replace('>','_');
+    }
+    return input;
+}

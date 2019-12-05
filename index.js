@@ -113,6 +113,7 @@ viewbtn.addEventListener("click", function(Event){
             {
                 pinx = scale_x*(defData.pins[i].x+drawingOffset_x);
                 piny = scale_y*Math.abs((defData.pins[i].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)) - pin_h;
+                
                 createPin(pinx, piny, pin_h, pin_w, defData.pins[i].name);
             }
             dropdownPins.innerHTML += '<li><a href="#" onClick="show(\''+defData.pins[i].name+'\')">'+defData.pins[i].name+'</a></li>';
@@ -125,6 +126,7 @@ viewbtn.addEventListener("click", function(Event){
         var dropdownNets = document.getElementById("dropdownNets");
         for (i in defData.nets)
         {
+            var name = defData.nets[i].name;
             for (j in defData.nets[i].routes)
             {
                 var metal_layer = defData.nets[i].routes[j].layer[5];
@@ -134,9 +136,9 @@ viewbtn.addEventListener("click", function(Event){
                 var x2 = (coord.length>1)?scale_x*(coord[1].x+drawingOffset_x): undefined;
                 var y2 = (coord.length>1)?scale_y*Math.abs((coord[1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
                 if(defData.nets[i].name.startsWith("clk"))
-                    createClkNet(defData.nets[i].name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
+                    createClkNet(name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
                 else
-                    createNet(defData.nets[i].name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
+                    createNet(name, metal_layer, getLayerWidth(metal_layer), x1, y1, x2, y2);
 
                 //DRC
                 record(coord, metal_layer);
@@ -186,6 +188,8 @@ viewbtn.addEventListener("click", function(Event){
 });
 // var h=true;
 // var clk= true;
+
+
 var svg_element;
 var net;
 var original_color;
@@ -196,15 +200,10 @@ function show(input){
         svg_element.classList.remove("blink_me");
         $('#'+prev_input).css('fill', original_color);
     }
-    if(input[input.length-1]=='>')
-    {
-        var p = input.length-3;
-        while(input[p]!='<')
-            p--;
-    }
+    input = correctName(input);
     svg_element = document.getElementById(input);
     if(svg_element==null)
-        alert(opt.substr(16)+" doesn't exist!");
+        alert(input + "Element doesn't exist!");
     else{
         original_color = $('#'+input).css('fill');
         $('#'+input).css('fill', '#DC143C');
@@ -222,6 +221,7 @@ function showNet(input){
                 
             }
     }
+    input = correctName(input);
     net = document.getElementsByClassName(input);
             if(net.length==0)
                 alert("NET doesn't exist");
