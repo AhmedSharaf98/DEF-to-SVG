@@ -150,6 +150,9 @@ viewbtn.addEventListener("click", function(Event){
         console.log(all_vias);
         check_drc();
         console.log(all_violations);
+        all_violations.forEach(element => {
+            
+        });
         if(!draw_colors_once)
         {
             var div = document.getElementById('sidnavRight');

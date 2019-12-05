@@ -16,7 +16,7 @@ var options = {
 var svgElement = document.querySelector('#svg-container');
 var panZoomTiger = svgPanZoom(svgElement,options);
 
-var num = -2;
+var num = -3;
 function makeSVGEl(tag, attrs) {
     var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
     for (var k in attrs) {
@@ -34,7 +34,8 @@ function createLayer(){
     var b = getRandomInt(256);
     var g = 0//;getRandomInt(256);
     opt_txt = "Metal " + ++num;
-    if(num == -1) opt_txt = "Pins";
+    if (num == -2) opt_txt = "DRC";
+    else if(num == -1) opt_txt = "Pins";
     else if(num == 0) opt_txt = "Cells";
     var option = "<input type='checkbox' class='opt_layer' data-num=" + num + " checked>"+ opt_txt +"<br>";
     $(".sidenav").append(option);
@@ -79,6 +80,15 @@ function createPin(_x, _y, _h, _w, name){
     html.setAttribute("data-content", name);
     html.setAttribute("id", correctName(name));
    $("#group_-1").append(html);
+   if(_x > 20 || _x < 430)
+       createText(_x + _w/2, _y, name, -1);
+   else
+       createText(_x, _y + _h/2, name, -1);
+}
+function createDRC(_x1, _x2, _x3, _x4, name){
+    var html = makeSVGEl("rect",
+    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+   $("#group_-2").append(html);
    if(_x > 20 || _x < 430)
        createText(_x + _w/2, _y, name, -1);
    else
@@ -152,6 +162,7 @@ function exp(){
     document.getElementById("link").href = url;
 }
 $(document).ready(function() {
+    createLayer(); //For DRC
     createLayer(); //For PINS
     createLayer(); //FOR CELLS
     $('#link').hide();
