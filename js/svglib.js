@@ -84,14 +84,15 @@ function createPin(_x, _y, _h, _w, name){
    else
        createText(_x, _y + _h/2, name, -1);
 }
-function createDRC(_x1, _x2, _x3, _x4, name){
-    var html = makeSVGEl("rect",
-    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
-   $("#group_-2").append(html);
-   if(_x > 20 || _x < 430)
-       createText(_x + _w/2, _y, name, -1);
-   else
-       createText(_x, _y + _h/2, name, -1);
+function createDRC(_x1){
+        console.log(_x1);
+//     var html = makeSVGEl("rect",
+//     { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+//    $("#group_-2").append(html);
+//    if(_x > 20 || _x < 430)
+//        createText(_x + _w/2, _y, name, -1);
+//    else
+//        createText(_x, _y + _h/2, name, -1);
 }
 
 function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){

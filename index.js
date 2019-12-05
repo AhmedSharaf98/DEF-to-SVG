@@ -149,7 +149,7 @@ viewbtn.addEventListener("click", function(Event){
         check_drc();
         console.log(all_violations);
         all_violations.forEach(element => {
-            
+            createDRC(element);
         });
         if(!draw_colors_once)
         {
