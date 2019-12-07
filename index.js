@@ -121,7 +121,8 @@ viewbtn.addEventListener("click", function(Event){
         //Drawing the nets
         function getLayerWidth(n)
         {
-            return 0.8 + n * 0.08;
+            if(n < 4) return 2;
+            else return 4;
         }
         var dropdownNets = document.getElementById("dropdownNets");
         for (i in defData.nets)
