@@ -53,7 +53,7 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w , fill:"transparent", style:"stroke:rgba(0,0,0,1);stroke-width:1"});
+     { x: _x, y: _y, height: _h, width: _w , fill:"transparent", style:"stroke:rgba(0,0,0,0.7);stroke-width:1"});
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
@@ -139,7 +139,7 @@ function createClkNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y =
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgb(255,255,255);stroke-width:" + width, class:"clkHighlight"});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgba(0,200,0,0.7);stroke-width:" + width, class:"clkHighlight"});
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
