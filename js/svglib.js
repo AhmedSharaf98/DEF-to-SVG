@@ -53,7 +53,7 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w , fill:"rgba("+r+","+g+","+b+")", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w , fill:"transparent", style:"stroke:rgba(0,0,0,1);stroke-width:1"});
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
