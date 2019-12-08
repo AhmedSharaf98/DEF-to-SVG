@@ -113,6 +113,7 @@ input[type='file']{
   z-index: 9999;
 }
 .blink_me {
+  fill: #DC143C;
   animation: blinker 1s linear infinite;
 }
 

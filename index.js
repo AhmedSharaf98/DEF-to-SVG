@@ -204,22 +204,10 @@ var net;
 var original_color;
 var prev_input;
 function show(input){
-    if(svg_element!=undefined)
-    {
-        svg_element.classList.remove("blink_me");
-        $('#'+prev_input).css('fill', original_color);
-    }
-    input = correctName(input);
-    svg_element = document.getElementById(input);
-    if(svg_element==null)
-        alert(input + "Element doesn't exist!");
-    else{
-        original_color = $('#'+input).css('fill');
-        $('#'+input).css('fill', '#DC143C');
-        $('#'+input).popover('show');
-        svg_element.classList.add("blink_me");
-        prev_input = input;
-    }
+    $("." + input).addClass("blink_me");
+}
+function removeHighlight(){
+    $(".blink_me").removeClass("blink_me");
 }
 function showNet(input){
     if(net!=undefined)
