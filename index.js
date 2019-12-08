@@ -205,6 +205,7 @@ var original_color;
 var prev_input;
 var probs = {};
 function show(input){
+    input = correctName(input);
     $("#" + input).addClass("blink_me");
     if($('#' + input).hasClass("cell")){
         $('#' + input).attr("stroke", "rgba(0,0,0,0.7)");
@@ -218,16 +219,15 @@ function show(input){
 function removeHighlight(){
     $(".blink_me").each(function() {
         $(this).removeClass("blink_me");
-        let layer = $(this).data('layer');
+        let layer = $(this).parent().data('layer');
         let r = $("#group_" + layer).data('r');
         let g = $("#group_" + layer).data('g');
         let b = $("#group_" + layer).data('b');
-        $(this).attr("style", "stroke:rgba("+r+","+g+","+b+",0.7)");
+        $(this).attr("stroke", "rgba("+r+","+g+","+b+",0.7)");
     });
    
 }
 function showNet(input){
-    alert("here");
     input = correctName(input);
     net = document.getElementsByClassName(input);
     if(net.length==0)
@@ -236,6 +236,6 @@ function showNet(input){
         for (var i=0; i<net.length; i++)
         {                    
             net[i].classList.add("blink_me");
-            $('#' + input).attr("stroke", "rgba(0,255,0,0.7)");                 
+            $('.' + input).attr("stroke", "rgba(0,255,0,0.7)");                 
         }
 }
