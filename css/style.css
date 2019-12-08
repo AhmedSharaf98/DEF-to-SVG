@@ -112,11 +112,3 @@ input[type='file']{
   position: relative; /* <-- Added */
   z-index: 9999;
 }
-.blink_me {
-  fill: #DC143C;
-  animation: blinker 1s linear infinite;
-}
-
-@keyframes blinker {  
-  50% { opacity: 0; }
-}

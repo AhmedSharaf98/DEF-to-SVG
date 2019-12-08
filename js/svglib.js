@@ -53,7 +53,9 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w , fill:"transparent", style:"stroke:rgba(0,0,0,0.7);stroke-width:1"});
+     { x: _x, y: _y, height: _h, width: _w , class: "cell",  fill:"transparent", stroke: "rgba(0,0,0,0.7)"});
+     
+    html.setAttribute("stroke-width", 1);
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
@@ -62,17 +64,6 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt, 0);
-}
-function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
-    var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
-    html.setAttribute("data-toggle", "popover");
-    html.setAttribute("data-trigger", "hover");
-    html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
-    html.setAttribute("id", txt.name);
-    $("#group_0").append(html);
-    if(_w > 5) //TODO: Check the correct value
-        createText(_x + _w/2, _y, txt);
 }
 function createPin(_x, _y, _h, _w, name){
     var html = makeSVGEl("rect",
@@ -120,7 +111,10 @@ function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = un
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:" + width + ";stroke-opacity: 0.5"});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  stroke: "rgb("+r+"," + g +"," + b + ")"});
+        html.setAttribute("data-layer", layerNum);
+        html.setAttribute("stroke-width", width);
+        html.setAttribute("stroke-opacity", 0.5);
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red", style:"fill-opacity: .5"});
@@ -139,7 +133,7 @@ function createClkNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y =
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgba(0,200,0,0.7);stroke-width:" + width, class:"clkHighlight"});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgba(0,0,255,0.7);stroke-width:" + width, class:"clkHighlight"});
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
