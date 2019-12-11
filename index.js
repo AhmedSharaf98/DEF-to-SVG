@@ -121,7 +121,8 @@ viewbtn.addEventListener("click", function(Event){
         //Drawing the nets
         function getLayerWidth(n)
         {
-            return 0.8 + n * 0.08;
+            if(n < 4) return 2;
+            else return 4;
         }
         var dropdownNets = document.getElementById("dropdownNets");
         for (i in defData.nets)
@@ -151,7 +152,15 @@ viewbtn.addEventListener("click", function(Event){
         check_drc();
         console.log(all_violations);
         all_violations.forEach(element => {
-            
+	    var x1 = scale_x*(element[0][0].x+drawingOffset_x);
+            var y1 = scale_y*Math.abs((element[0][0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+            var x2 = (element[0].length>1)?scale_x*(element[0][1].x+drawingOffset_x): undefined;
+            var y2 = (element[0].length>1)?scale_y*Math.abs((element[0][1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+	        var _x1 = scale_x*(element[1][0].x+drawingOffset_x);;
+            var _y1 = scale_y*Math.abs((element[1][0].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1));
+            var _x2 = (element[1].length>1)?scale_x*(element[1][1].x+drawingOffset_x): undefined;
+            var _y2 = (element[1].length>1)?scale_y*Math.abs((element[1][1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
+            createDRC([[{'x':x1, 'y':y1}, {'x':x2, 'y':y2}],[{'x':_x1, 'y':_y1}, {'x':_x2, 'y':_y2}]]);
         });
         if(!draw_colors_once)
         {
@@ -194,40 +203,39 @@ var svg_element;
 var net;
 var original_color;
 var prev_input;
+var probs = {};
 function show(input){
-    if(svg_element!=undefined)
-    {
-        svg_element.classList.remove("blink_me");
-        $('#'+prev_input).css('fill', original_color);
-    }
     input = correctName(input);
-    svg_element = document.getElementById(input);
-    if(svg_element==null)
-        alert(input + "Element doesn't exist!");
-    else{
-        original_color = $('#'+input).css('fill');
-        $('#'+input).css('fill', '#DC143C');
-        $('#'+input).popover('show');
-        svg_element.classList.add("blink_me");
-        prev_input = input;
+    $("#" + input).addClass("blink_me");
+    if($('#' + input).hasClass("cell")){
+        $('#' + input).attr("stroke", "rgba(0,0,0,0.7)");
+        $('#' + input).attr("fill", "rgba(0,255,0,0.7)");
+    } else {
+        $('#' + input).attr("stroke", "rgba(0,255,0,0.7)");
     }
+    $('.popover').popover('hide');
+    $('#' + input).popover('show');
+}
+function removeHighlight(){
+    $(".blink_me").each(function() {
+        $(this).removeClass("blink_me");
+        let layer = $(this).parent().data('layer');
+        let r = $("#group_" + layer).data('r');
+        let g = $("#group_" + layer).data('g');
+        let b = $("#group_" + layer).data('b');
+        $(this).attr("stroke", "rgba("+r+","+g+","+b+",0.7)");
+    });
+   
 }
 function showNet(input){
-    if(net!=undefined)
-    {
-        for (var i=0; i<net.length; i++)
-            {                    
-                net[i].classList.remove("blink_me");               
-                
-            }
-    }
     input = correctName(input);
     net = document.getElementsByClassName(input);
-            if(net.length==0)
-                alert("NET doesn't exist");
-            else
-                for (var i=0; i<net.length; i++)
-                {                    
-                    net[i].classList.add("blink_me");                 
-                }
+    if(net.length==0)
+        alert("NET doesn't exist");
+    else
+        for (var i=0; i<net.length; i++)
+        {                    
+            net[i].classList.add("blink_me");
+            $('.' + input).attr("stroke", "rgba(0,255,0,0.7)");                 
+        }
 }

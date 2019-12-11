@@ -40,7 +40,11 @@ function createLayer(){
     var option = "<input type='checkbox' class='opt_layer' data-num=" + num + " checked>"+ opt_txt +"<br>";
     $(".sidenav").append(option);
     var html = makeSVGEl("g", {id: "group_" + num, "data-r":r,"data-b":b,"data-g":g });
-    $(".svg-pan-zoom_viewport").append(html);
+    html.setAttribute("data-layer", num);
+    if(num == -2)
+        $("#drc-container").append(html);
+    else
+        $("#not-drc-container").append(html);
 }
 function createText(_x, _y, txt, layer){
 //     var _html = makeSVGEl("text",
@@ -50,7 +54,9 @@ function createText(_x, _y, txt, layer){
 }
 function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w , fill:"rgba("+r+","+g+","+b+")", style:"stroke:rgba("+r+","+g+","+b+", 1);stroke-width:0.5"});
+     { x: _x, y: _y, height: _h, width: _w , class: "cell",  fill:"transparent", stroke: "rgba(0,0,0,0.7)"});
+     
+    html.setAttribute("stroke-width", 1);
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
@@ -60,20 +66,10 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt, 0);
 }
-function createFlipFlop(_x, _y, _h, _w, r, b, g, txt){
-    var html = makeSVGEl("rect",
-     { x: _x, y: _y, height: _h, width: _w, class:"highlighted", fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
-    html.setAttribute("data-toggle", "popover");
-    html.setAttribute("data-trigger", "hover");
-    html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
-    html.setAttribute("id", txt.name);
-    $("#group_0").append(html);
-    if(_w > 5) //TODO: Check the correct value
-        createText(_x + _w/2, _y, txt);
-}
 function createPin(_x, _y, _h, _w, name){
     var html = makeSVGEl("rect",
     { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w});
+    
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("title", "PIN name");
@@ -85,14 +81,24 @@ function createPin(_x, _y, _h, _w, name){
    else
        createText(_x, _y + _h/2, name, -1);
 }
-function createDRC(_x1, _x2, _x3, _x4, name){
+function createDRC(violation){
+    var wire1_x1 = violation[0][0].x;
+    var wire1_y1 = violation[0][0].y;
+    var wire1_x2 = violation[0][1].x;
+    var wire1_y2 = violation[0][1].y;
+    var wire2_x1 = violation[1][0].x;
+    var wire2_y1 = violation[1][0].y;
+    var wire2_x2 = violation[1][1].x;
+    var wire2_y2 = violation[1][1].y;
+    var offset = 5;
+    var _x = Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - offset;
+    var _y = Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - offset;
+    var _width = Math.max(Math.abs(wire1_x1 - wire1_x2),Math.abs(wire2_x1 - wire2_x2)) + offset;
+    var _height = Math.max(Math.abs(wire1_y1 - wire1_y2),Math.abs(wire2_y1 - wire2_y2)) + offset;
+
     var html = makeSVGEl("rect",
-    { x: _x - _w/2, y: _y + _h/2, height: _h, width: _w, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
+    { x: _x, y: _y , height: _height, width: _width, fill:"rgba(0,0,0, 0.9)", style:"stroke:rgba(0,0,0, 1);stroke-width:0.5"});
    $("#group_-2").append(html);
-   if(_x > 20 || _x < 430)
-       createText(_x + _w/2, _y, name, -1);
-   else
-       createText(_x, _y + _h/2, name, -1);
 }
 
 function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = undefined){
@@ -107,7 +113,10 @@ function createNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y = un
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  style:"stroke:rgb("+r+","+g+","+b+");stroke-width:" + width + ";stroke-opacity: 0.5"});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y,  stroke: "rgb("+r+"," + g +"," + b + ")"});
+        html.setAttribute("data-layer", layerNum);
+        html.setAttribute("stroke-width", width);
+        html.setAttribute("stroke-opacity", 0.5);
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red", style:"fill-opacity: .5"});
@@ -126,7 +135,10 @@ function createClkNet(netName, layerNum, width, p1x, p1y, p2x = undefined, p2y =
     var html;
     if(p2x != undefined){
         html = makeSVGEl("line",
-        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, style:"stroke:rgb(255,255,255);stroke-width:" + width, class:"clkHighlight"});
+        { x1: p1x, y1: p1y, x2: p2x, y2: p2y, stroke: "rgba(0,0,255,0.7)"});
+        html.setAttribute("data-layer", layerNum);
+        html.setAttribute("stroke-width", width);
+        html.setAttribute("stroke-opacity", 0.5);
     } else {
         html =  makeSVGEl("rect", 
         {x:p1x - 1.25, y:p1y - 1.25, height:"2.5", width:"2.5",fill:"red",style:"fill-opacity: .5"});
