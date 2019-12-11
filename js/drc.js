@@ -2,7 +2,7 @@ spacing = {1:200, 2:160, 3:200, 4:320}  // from the lef file
 all_wires = {};
 all_vias = {};
 all_violations = [];
-function record(coord, metal_layer){
+function record(coord, metal_layer){ //record violations
     if (coord.length == 1){
         if (all_vias[metal_layer] == null)
             all_vias[metal_layer] = []
@@ -12,11 +12,11 @@ function record(coord, metal_layer){
         if (all_wires[metal_layer] == null)
             all_wires[metal_layer] = {h:[], v:[]};
         if(coord[0].y == coord[1].y)    //horizontal    
-            all_wires[metal_layer].h.push(coord);
+            all_wires[metal_layer].h.push(coord); //check horizontal 
         else if (coord[0].x == coord[1].x)    //vertical    
-            all_wires[metal_layer].v.push(coord);
+            all_wires[metal_layer].v.push(coord); //check vertical
         else
-            console.log("invalid wire!!");
+            console.log("invalid wire!!"); 
     }
 }
 function sort_all_records(){
@@ -59,7 +59,7 @@ function check_drc(){
             }
             for (i=0;i<m.v.length-1; i++){
                 for (j=i+1;j<m.v.length;j++){
-                    if (!horizontal_spacing_violation(m.v[i], m.v[j], key))
+                    if (!horizontal_spacing_violation(m.v[i], m.v[j], key)) //horizontal violations
                         break;
                     if (intersect_horizontally(m.v[i], m.v[j])){
                         console.log("violation!");
