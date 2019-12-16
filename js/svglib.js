@@ -90,15 +90,14 @@ function createDRC(violation){
     var wire2_y1 = violation[1][0].y;
     var wire2_x2 = violation[1][1].x;
     var wire2_y2 = violation[1][1].y;
-    var offset = 2;
-    // var _x = Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - offset;
-    // var _y = Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - offset;
-    // var _width = Math.max(Math.abs(wire1_x1 - wire1_x2),Math.abs(wire2_x1 - wire2_x2)) + 2*offset;
-    // var _height = Math.max(Math.abs(wire1_y1 - wire1_y2),Math.abs(wire2_y1 - wire2_y2)) + 2*offset;
-    var _x = Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - offset;
-    var _y = Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - offset;
-    var _width = Math.max(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) + 2*offset;
-    var _height = Math.max(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) + 2*offset;
+    var offset = 0.05;
+    var _width = (Math.max(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2));
+    var _height = (Math.max(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2));
+    var _offset = Math.max(_width, _height)*offset;
+    var _x = Math.min(wire1_x1, wire1_x2, wire2_x1, wire2_x2) - _offset;
+    var _y = Math.min(wire1_y1, wire1_y2, wire2_y1, wire2_y2) - _offset;
+    _width += 2*_offset;
+    _height += 2*_offset;
 
     var html = makeSVGEl("rect",
     { x: _x, y: _y , height: _height, width: _width, fill:"rgba(255,0,0, 0.5)", style:"stroke:rgba(255,0,0, 0);stroke-width:0.2"});
