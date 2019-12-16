@@ -1,4 +1,4 @@
-test_offset = 1;
+test_offset = 0;
 spacing = {1:200+test_offset, 2:160+test_offset, 3:200+test_offset, 4:320+test_offset}  // from the lef file
 all_wires = {};
 all_vias = {};

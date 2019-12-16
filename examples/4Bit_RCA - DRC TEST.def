@@ -513,11 +513,11 @@ NETS 50 ;
   ( NAND3X1_4 C ) 
   ( OR2X2_4 Y ) 
 + ROUTED metal1 ( 3040 3250 ) ( * 3200 ) M2_M1 
-  NEW metal2 ( 3040 3200 ) ( * 3000 ) M3_M2 
+  NEW metal2 ( 3040 2000 ) ( * 3000 ) M3_M2 
   NEW metal3 ( 3040 3000 ) ( * 3200 ) M4_M3 
   NEW metal4 ( 3040 3200 ) ( * 2400 ) M4_M3 
   NEW metal3 ( 3040 2400 ) ( 1760 * ) M3_M2 
-  NEW metal2 ( 1760 2400 ) ( * 1800 ) M2_M1 ;
+  NEW metal2 ( 3000 2400 ) ( * 2900 ) M2_M1 ;
 - FA4.$abc$87$n8
   ( OAI21X1_8 C ) 
   ( NAND3X1_4 B ) 

@@ -56,7 +56,7 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
      { x: _x, y: _y, height: _h, width: _w , class: "cell",  fill:"transparent", stroke: "rgba(0,0,0,0.7)"});
      
-    html.setAttribute("stroke-width", 0.1);
+    html.setAttribute("stroke-width", 0.2);
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
@@ -100,7 +100,7 @@ function createDRC(violation){
     _height += 2*_offset;
 
     var html = makeSVGEl("rect",
-    { x: _x, y: _y , height: _height, width: _width, fill:"rgba(255,0,0, 0.5)", style:"stroke:rgba(255,0,0, 0);stroke-width:0.2"});
+    { x: _x, y: _y , height: _height, width: _width, fill:"rgba(255,0,0, 0.25)", style:"stroke:rgba(0,0,0, 0.5);stroke-width:0"});
    $("#group_-2").append(html);
 }
 
