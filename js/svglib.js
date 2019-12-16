@@ -56,7 +56,7 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     var html = makeSVGEl("rect",
      { x: _x, y: _y, height: _h, width: _w , class: "cell",  fill:"transparent", stroke: "rgba(0,0,0,0.7)"});
      
-    html.setAttribute("stroke-width", 1);
+    html.setAttribute("stroke-width", 0.1);
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
