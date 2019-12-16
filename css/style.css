@@ -40,10 +40,11 @@ text-align: center;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: lightsalmon;
+    /* background-color: lightsalmon; */
     overflow-x: hidden;
+    padding-left: 140px;
     padding-top: 20px;
-    margin-top: 100px;
+    margin-top: 250px;
   }
   .sidenav a {
     padding: 6px 8px 6px 16px;

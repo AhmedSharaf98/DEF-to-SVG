@@ -162,13 +162,13 @@ viewbtn.addEventListener("click", function(Event){
             var _y2 = (element[1].length>1)?scale_y*Math.abs((element[1][1].y+drawingOffset_y)-Math.abs(defData.die.y2-defData.die.y1)): undefined;
             createDRC([[{'x':x1, 'y':y1}, {'x':x2, 'y':y2}],[{'x':_x1, 'y':_y1}, {'x':_x2, 'y':_y2}]]);
         });
-        if(!draw_colors_once)
-        {
-            var div = document.getElementById('sidnavRight');
-            for (var key in celltypeToColor)
-                div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
-            draw_colors_once = 1;
-        }
+        // if(!draw_colors_once)
+        // {
+        //     var div = document.getElementById('sidnavRight');
+        //     for (var key in celltypeToColor)
+        //         div.innerHTML += "<h6 style=background-color:rgb("+celltypeToColor[key].r+','+celltypeToColor[key].g+','+celltypeToColor[key].b+")>"+key+"</h6>"; ;
+        //     draw_colors_once = 1;
+        // }
         $('[data-toggle="popover"]').popover({
             container: "body",
             placement: "auto",
