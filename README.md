@@ -4,7 +4,7 @@ This project was done as part of Digital Design II course at the American Univer
 To run this application, you should download the repo and open index.html using any of the latest web browsers.
 
 Live Demo:
-https://def2svg.000webhostapp.com/
+https://ahmedsharaf98.github.io/DEF-to-SVG/
 
 Contributors:
 AHMED SHARAF-ELDIN		
