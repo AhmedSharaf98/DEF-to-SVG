@@ -220,7 +220,13 @@ function show(input){
     $('#' + input).popover('show');
 }
 function ffHighlight(){
-
+    $(".flipflop").each(function(  ) {
+        var clone = $(this).clone();
+        clone.attr("stroke", "rgba(0,0,0,0.7)");
+        clone.attr("fill", "rgba(0,255,0,0.7)");
+        clone.addClass("highlighted")
+        $(this).after(clone);
+    });
 }
 function removeHighlight(){
     $(".highlighted").remove();
