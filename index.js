@@ -206,8 +206,13 @@ var prev_input;
 var probs = {};
 function show(input){
     input = correctName(input);
+    if($("#clone_" + input).length){
+        $("#clone_" + input).remove();
+        return;
+    }
     var original = $("#" + input);
     var clone = original.clone();
+    clone.attr("id", "clone_" + input);
     if(clone.hasClass("cell")){
         clone.attr("stroke", "rgba(0,0,0,0.7)");
         clone.attr("fill", "rgba(0,255,0,0.7)");
@@ -220,8 +225,13 @@ function show(input){
     $('#' + input).popover('show');
 }
 function ffHighlight(){
-    $(".flipflop").each(function(  ) {
+    $(".flipflop").each(function() {
+        if($("#clone_" + $(this).attr('id')).length){
+            $("#clone_" + $(this).attr('id')).remove();
+            return;
+        }
         var clone = $(this).clone();
+        clone.attr("id", "clone_" + $(this).attr('id'));
         clone.attr("stroke", "rgba(0,0,0,0.7)");
         clone.attr("fill", "rgba(0,255,0,0.7)");
         clone.addClass("highlighted")
