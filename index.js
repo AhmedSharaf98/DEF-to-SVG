@@ -206,26 +206,24 @@ var prev_input;
 var probs = {};
 function show(input){
     input = correctName(input);
-    $("#" + input).addClass("blink_me");
-    if($('#' + input).hasClass("cell")){
-        $('#' + input).attr("stroke", "rgba(0,0,0,0.7)");
-        $('#' + input).attr("fill", "rgba(0,255,0,0.7)");
+    var original = $("#" + input);
+    var clone = original.clone();
+    if(clone.hasClass("cell")){
+        clone.attr("stroke", "rgba(0,0,0,0.7)");
+        clone.attr("fill", "rgba(0,255,0,0.7)");
     } else {
-        $('#' + input).attr("stroke", "rgba(0,255,0,0.7)");
+        clone.attr("stroke", "rgba(0,255,0,0.7)");
     }
+    clone.addClass("highlighted")
+    original.after(clone);
     $('.popover').popover('hide');
     $('#' + input).popover('show');
 }
+function ffHighlight(){
+
+}
 function removeHighlight(){
-    $(".blink_me").each(function() {
-        $(this).removeClass("blink_me");
-        let layer = $(this).parent().data('layer');
-        let r = $("#group_" + layer).data('r');
-        let g = $("#group_" + layer).data('g');
-        let b = $("#group_" + layer).data('b');
-        $(this).attr("stroke", "rgba("+r+","+g+","+b+",0.7)");
-    });
-   
+    $(".highlighted").remove();
 }
 function showNet(input){
     input = correctName(input);
