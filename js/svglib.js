@@ -62,6 +62,9 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
     console.log(correctName(txt.name));
     html.setAttribute("id", correctName(txt.name));
+    if(correctName(txt.name).substring(0,3) == "DFF"){
+        html.classList.add("flipflop");
+    }
     $("#group_0").append(html);
     if(_w > 5) //TODO: Check the correct value
         createText(_x + _w/2, _y, txt, 0);
