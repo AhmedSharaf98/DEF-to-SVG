@@ -243,13 +243,14 @@ function removeHighlight(){
 }
 function showNet(input){
     input = correctName(input);
-    net = document.getElementsByClassName(input);
-    if(net.length==0)
+    if($('.' + input).length==0)
         alert("NET doesn't exist");
     else
-        for (var i=0; i<net.length; i++)
-        {                    
-            net[i].classList.add("blink_me");
-            $('.' + input).attr("stroke", "rgba(0,255,0,0.7)");                 
-        }
+    $('.' + input).each(function(){
+        var clone = $(this).clone();
+        clone.attr("id", "clone_" + $(this).attr('id'));
+        clone.attr("stroke", "rgba(0,255,0,1)"); 
+        clone.addClass("highlighted")
+        $(this).after(clone);
+    });
 }
