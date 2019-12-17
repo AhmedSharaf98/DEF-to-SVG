@@ -69,6 +69,7 @@ viewbtn.addEventListener("click", function(Event){
             
         };
         
+        var cellTypes = [];
         const h = scale_y*lefData.cells[defData.cells[0][0].type].h *100;
         var cell_info = {}
         var dropdownCells = document.getElementById("dropdownCells");
@@ -93,6 +94,10 @@ viewbtn.addEventListener("click", function(Event){
                 //     createFlipFlop(x, y, h, w, r, b, g, cell_info )
                 // else
                 createCell(x, y, h, w, r, b, g, cell_info);
+                if(!cellTypes.includes(cell_info.type)){
+                    cellTypes.push(cell_info.type);
+                    dropdownCells.innerHTML += '<li><a href="#" onClick="showByType(\''+ cell_info.type+'\')">BY TYPE: '+cell_info.type+'</a></li>';
+                }
                 dropdownCells.innerHTML += '<li><a href="#" onClick="show(\''+ cell_info.name+'\')">'+cell_info.name+'</a></li>';
             }
         }
@@ -144,7 +149,7 @@ viewbtn.addEventListener("click", function(Event){
                 //DRC
                 record(coord, metal_layer);
             }
-            dropdownNets.innerHTML += '<li><a href="#" onClick="showNet(\''+defData.nets[i].name+'\')">'+defData.nets[i].name+'</a></li>';
+            dropdownNets.innerHTML += '<li><a href="#" onClick="showByType(\''+defData.nets[i].name+'\')">'+defData.nets[i].name+'</a></li>';
         }
         sort_all_records();
         console.log(all_wires);
@@ -241,7 +246,7 @@ function ffHighlight(){
 function removeHighlight(){
     $(".highlighted").remove();
 }
-function showNet(input){
+function showByType(input){
     input = correctName(input);
     if($('.' + input).length==0)
         alert("NET doesn't exist");
@@ -250,6 +255,7 @@ function showNet(input){
         var clone = $(this).clone();
         clone.attr("id", "clone_" + $(this).attr('id'));
         clone.attr("stroke", "rgba(0,255,0,1)"); 
+        clone.attr("fill", "rgba(0,255,0,1)"); 
         clone.addClass("highlighted")
         $(this).after(clone);
     });

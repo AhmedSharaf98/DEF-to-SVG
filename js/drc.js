@@ -3,7 +3,7 @@ spacing = {1:200+test_offset, 2:160+test_offset, 3:200+test_offset, 4:320+test_o
 all_wires = {};
 all_vias = {};
 all_violations = [];
-function record(coord, metal_layer){ //record violations
+async function record(coord, metal_layer){ //record violations
     if (coord.length == 1){
         if (all_vias[metal_layer] == null)
             all_vias[metal_layer] = []
@@ -20,7 +20,7 @@ function record(coord, metal_layer){ //record violations
             console.log("invalid wire!!"); 
     }
 }
-function sort_all_records(){
+async function sort_all_records(){
     for (key in Object.keys(all_wires)){
         if (all_wires.hasOwnProperty(key)){
             all_wires[key].h.sort(function (a,b){

@@ -60,8 +60,8 @@ function createCell(_x, _y, _h, _w, r, b, g, txt){
     html.setAttribute("data-toggle", "popover");
     html.setAttribute("data-trigger", "hover");
     html.setAttribute("data-content", "Name: " + txt.name + "<br/>Type: " + txt.type);
-    console.log(correctName(txt.name));
     html.setAttribute("id", correctName(txt.name));
+    html.classList.add(txt.type);
     if(correctName(txt.name).substring(0,3) == "DFF"){
         html.classList.add("flipflop");
     }
